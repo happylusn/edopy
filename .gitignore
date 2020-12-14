@@ -1,0 +1,28 @@
+*.py[cod]
+.idea
+
+venv
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+__pycache__
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+######################
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
