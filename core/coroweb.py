@@ -267,3 +267,8 @@ def add_routes(app, api_path: str, module_name: str):
             add_routes(app, os.path.join(api_path, dr), module_name + '.%s' % dr)
         break
 
+
+def add_static(app):
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../static')
+    app.router.add_static('/static/', path)
+    logging.info('add static %s => %s' % ('/static/', path))

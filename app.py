@@ -1,8 +1,8 @@
 import os, logging
 from aiohttp import web
 from core.orm2 import create_pool, table, Model, IntegerField, StringField
-from core.coroweb import add_routes
-from config.config import configs
+from core.coroweb import add_routes, add_static
+from config import configs
 from core.function import init_jinja2
 
 logging.basicConfig(level=logging.INFO)
@@ -23,6 +23,8 @@ app = web.Application(middlewares=[middleware1])
 init_jinja2(app)
 
 add_routes(app, os.path.join(os.path.dirname(__file__), './api/v1'), 'api.v1')
+
+add_static(app)
 
 app.cleanup_ctx.append(create_pool(**configs.db))
 

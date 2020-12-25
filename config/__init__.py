@@ -1,3 +1,5 @@
+__all__ = ['configs']
+
 from .config_default import configs as default_configs
 from .config_override import configs as override_configs
 
@@ -34,13 +36,11 @@ def merge(defaults, override):
     return r
 
 
-def toDict(d):
+def to_dict(d):
     D = Dict()
     for k, v in d.items():
-        D[k] = toDict(v) if isinstance(v, dict) else v
+        D[k] = to_dict(v) if isinstance(v, dict) else v
     return D
 
 
-configs = toDict(merge(default_configs, override_configs))
-
-
+configs = to_dict(merge(default_configs, override_configs))
