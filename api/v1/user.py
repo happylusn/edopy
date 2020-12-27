@@ -1,4 +1,6 @@
 from core.coroweb import controller, get, post
+from core.function import render
+from model.user import UserModel
 
 
 @controller('/v1/user')
@@ -8,8 +10,12 @@ class UserController:
 
     @get('/users')
     async def get_users(self, app):
-        print(app.render)
-        return app.render('__base__.html')
+        res = await UserModel.findall(raw=True)
+        # user = UserModel(nickname='jkl', email='23@qq.com')
+        # res = await user.save()
+        # print(res)
+        # return app.render('__base__.html')
+        return render('__base__.html')
 
     @post('/register')
     async def register_user(self, *, account: str, type: int = 100):

@@ -1,10 +1,10 @@
 from core.coroweb import controller, get
 
 
-@controller('/')
+@controller('/v1')
 class BlogController:
 
     @get('/blog')
-    def blog(self):
+    async def blog(self):
         return 'blog'
 

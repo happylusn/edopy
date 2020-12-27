@@ -1,9 +1,14 @@
 from jinja2 import Environment, FileSystemLoader
 import logging, os
 from aiohttp import web
+from typing import Optional
+
+
+env: Optional[Environment] = None
 
 
 def init_jinja2(app, **kw):
+    global env
     logging.info('init jinja2...')
     options = dict(
         autoescape=kw.get('autoescape', True),
@@ -31,3 +36,14 @@ def init_jinja2(app, **kw):
         return resp
 
     app.render = _render
+
+
+def render(template: str, data: Optional[dict] = None):
+    global env
+    if isinstance(env, Environment):
+        data = data or {}
+        resp = web.Response(body=env.get_template(template).render(**data).encode('utf-8'))
+    else:
+        resp = web.Response(body='jinja2 is not init')
+    resp.content_type = 'text/html;charset=utf-8'
+    return resp
